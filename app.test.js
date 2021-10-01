@@ -6,12 +6,12 @@ const build = require('./app').productBuilder;
 describe('GET requests', () => {
     
     test('GET product/read endpoint, expect 200', async () => {
-        const res = await request(app).get('/product/read')
+        const res = await request(app).get('/product/read');
         expect(res.statusCode).toBe(200);
     });
 
     test('GET bad endpoint, expect 404', async () => {
-      const res = await request(app).get('/badEndPoint')
+      const res = await request(app).get('/badEndPoint');
       expect(res.statusCode).toBe(404);
     });
 
@@ -21,7 +21,8 @@ describe('GET requests', () => {
 describe('CREATE request', () => {
     
     test('CREATE product test', async () => {
-	// TEST IN HERE
+	const res = await request(app).post('/product/create');
+    expect(res.statusCode).toBe(201);
     });
 
 });
@@ -30,7 +31,13 @@ describe('CREATE request', () => {
 describe('Unit Tests', () => {
 
     test('product object builder', () => {
-        // TEST IN HERE
+        const productName = "productName";
+        const productDescription = "productDescription";
+        const productPrice = "productPrice";
+        const newProduct = productBuilder(productName, productDescription, productPrice);
+        expect(newProduct.name).toBe("productName");
+        expect(newProduct.description).toBe("productDescription");
+        expect(newProduct.price).toBe("productPrice");
     });
 
 });
