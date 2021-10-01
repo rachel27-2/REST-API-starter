@@ -21,6 +21,7 @@ productBuilder = (productName, productDescription, productPrice) => {
         price : productPrice
     };
     // return the product
+    console.log(product);
     return product;
 };
 
@@ -144,7 +145,7 @@ app.delete('/product/delete/:id', (req,res) => {
     let prodId = req.params.id;
 
     // remove from the Database by '_id:' to get the product
-    db.remove({_id: prodId}, (err, product) => {
+    db.remove({_id: prodId}, (err) => {
 
         // if error, send a response containing the error message
         if (err) res.send(err);
