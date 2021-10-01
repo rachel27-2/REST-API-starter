@@ -1,17 +1,28 @@
-// Imports
 const express = require('express'); // express import from node_modules
 const Datastore = require('nedb'); // Database import from node_modules
 const db = new Datastore(); // Database setup
 const chalk = require('chalk'); // chalk import from node_modules
 const app = express(); // 
-const PORT = process.env.PORT || 8080;
 const log = console.log; // setting console.log to log
-// Body Parser for data in http requests
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); // Body Parser for data in http requests
+
+// add body parser to app
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+//function to build product
+productBuilder = (productName, productDescription, productPrice) => {
+    // use JSON to outline product
+    let product =  { 
+        name : productName,
+        description : productDescription,
+        price : productPrice
+    };
+    // return the product
+    return product;
+};
 
 // CREATE - RESTful POST
 app.post(`/product/create`, (req, res) => {
@@ -19,13 +30,8 @@ app.post(`/product/create`, (req, res) => {
     // pretty logging with Chalk!
     log(chalk.green.bold(`\nCREATE\n`));
 
-    // JSON to outline product
-    let product = {
-        // get the name (key) from the body (data) of the http request
-        name : req.body.name, 
-        description : req.body.description,
-        price : req.body.price
-    };
+    // use the product building function to make a product object
+    let product = productBuilder(req.body.name, req.body.description, req.body.price);
 
     // insert into Database with 'insert'
     db.insert(product, (err, product) => {
@@ -42,7 +48,7 @@ app.post(`/product/create`, (req, res) => {
 
     });
 
-})
+});
 
 // READ (all) - RESTful GET
 app.get('/product/read', (req,res) => {
@@ -153,7 +159,4 @@ app.delete('/product/delete/:id', (req,res) => {
 
 });
 
-// app listener
-app.listen(PORT, () => {
-    log(`API Listening on http://localhost:${PORT}`);
-});
+module.exports = {app, productBuilder};
