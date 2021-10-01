@@ -34,7 +34,7 @@ describe('Unit Tests', () => {
         const productName = "productName";
         const productDescription = "productDescription";
         const productPrice = "productPrice";
-        const newProduct = productBuilder(productName, productDescription, productPrice);
+        const newProduct = build(productName, productDescription, productPrice);
         expect(newProduct.name).toBe("productName");
         expect(newProduct.description).toBe("productDescription");
         expect(newProduct.price).toBe("productPrice");
