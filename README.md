@@ -32,6 +32,7 @@ To perform a get request on all the products in the database, use the following 
 
 $ curl -s -X GET http://localhost:8080/product/read
 
+  edit to test pipeline
 To fetch a single product using its ID, use the following command:
 
 $ curl -s -X GET http://localhost:8080/product/read/<id>
